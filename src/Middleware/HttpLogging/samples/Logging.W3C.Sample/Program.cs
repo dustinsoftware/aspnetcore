@@ -1,6 +1,8 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using Microsoft.AspNetCore.HttpLogging;
+
 namespace Logging.W3C.Sample;
 
 public class Program
@@ -15,5 +17,10 @@ public class Program
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
+            })
+            .ConfigureAppConfiguration((hostingContext, configuration) =>
+            {
+                configuration.AddJsonFile("appsettings2.json", optional: false, reloadOnChange: true);
+                IConfigurationRoot configurationRoot = configuration.Build();
             });
 }
